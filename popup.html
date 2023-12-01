@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam Fiyat Dönüştürücü</title>
+    <style>
+        @font-face {
+            font-family: 'Motiva Sans';
+            src: url('fonts/motiva-sans-regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --gpStoreDarkGrey: #2A475E;
+            --gpStoreDarkerGrey: #1B2838;
+            --gpGradient-StoreBackground: linear-gradient(180deg, var(--gpStoreDarkGrey) 0%, var(--gpStoreDarkerGrey) 80%);
+        }
+
+        body {
+            font-family: 'Motiva Sans', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--gpGradient-StoreBackground);
+            color: #fff;
+            text-align: center;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 550;
+            color: #a4b3c4;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+        }
+        .toggle-switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "$";
+            text-align: center;
+            line-height: 32px;
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            color: var(--gpStoreDarkGrey);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #5c7e10; /* Yeşil renk */
+        }
+        input:checked + .slider:before {
+            content: "₺";
+            transform: translateX(30px);
+        }
+        .status-text {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Steam Fiyat Dönüştürücü</div>
+    <label class="toggle-switch">
+        <input type="checkbox" id="toggleButton">
+        <span class="slider round"></span>
+    </label>
+    <div id="statusText" class="status-text">Fiyatlar şu an orijinal kurda gösteriliyor.</div>
+    <script src="popup.js"></script>
+</body>
+</html>
