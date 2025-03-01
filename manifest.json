@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Steam Fiyat Dönüştürücü",
-  "version": "0.8",
+  "version": "1.1",
   "description": "Steam'deki oyun fiyatlarını kullanıcıların yerel para birimi cinsinden hızlı ve kolay bir şekilde görmelerini sağlar.",
   "permissions": ["storage", "tabs"],
   "host_permissions": ["*://store.steampowered.com/*"],
@@ -26,5 +26,15 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/flags/usa.png",
+        "icons/flags/turkiye.png",
+        "fonts/motiva-sans-regular.otf"
+      ],
+      "matches": ["*://store.steampowered.com/*"]
+    }
+  ]
 }

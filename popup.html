@@ -14,34 +14,91 @@
         :root {
             --gpStoreDarkGrey: #2A475E;
             --gpStoreDarkerGrey: #1B2838;
+            --gpStoreBlue: #1a9fff;
+            --gpStoreGreen: #5c7e10;
             --gpGradient-StoreBackground: linear-gradient(180deg, var(--gpStoreDarkGrey) 0%, var(--gpStoreDarkerGrey) 80%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Motiva Sans', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background: var(--gpGradient-StoreBackground);
             color: #fff;
-            text-align: center;
+            min-width: 260px;
+            max-width: 270px;
+            overflow: hidden;
+            height: auto;
+            display: flex;
+            flex-direction: column;
         }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 15px 20px;
+            height: 100%;
+        }
+
         .header {
-            font-size: 18px;
+            font-size: 14px;
             margin-bottom: 15px;
-            font-weight: 550;
-            color: #a4b3c4;
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+            position: relative;
+            padding: 14px 0;
+            text-align: center;
+            width: 100%;
+            background: linear-gradient(to bottom, #375470, #1B2838);
+            margin-left: -15px;
+            margin-right: -15px;
+            width: calc(100% + 30px);
+            margin-top: -15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 192, 244, 0.8), transparent);
+        }
+
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px 0 10px;
+            width: 100%;
+        }
+
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 70px;
-            height: 40px;
+            width: 60px;
+            height: 34px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            z-index: 10;
         }
+
         .toggle-switch input { 
             opacity: 0;
             width: 0;
             height: 0;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -49,45 +106,397 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
+            background-color: #375470;
             transition: .4s;
             border-radius: 34px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
         }
+
         .slider:before {
             position: absolute;
             content: "$";
             text-align: center;
-            line-height: 32px;
-            height: 32px;
-            width: 32px;
+            line-height: 26px;
+            height: 26px;
+            width: 26px;
             left: 4px;
-            bottom: 4px;
+            bottom: 2px;
             background-color: white;
             color: var(--gpStoreDarkGrey);
             transition: .4s;
             border-radius: 50%;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         input:checked + .slider {
-            background-color: #5c7e10; /* Yeşil renk */
+            background-color: var(--gpStoreGreen);
         }
+
+        input:focus + .slider {
+            box-shadow: 0 0 8px var(--gpStoreBlue);
+        }
+
         input:checked + .slider:before {
             content: "₺";
-            transform: translateX(30px);
+            transform: translateX(25px);
         }
+
         .status-text {
-            margin-top: 15px;
             font-size: 12px;
-            color: #dddddd;
+            color: #d6d7d8;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            width: fit-content;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #31496a;
+            position: relative;
+        }
+        
+        .status-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .sub-status {
+            font-size: 11px;
+            color: #a3cf06;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .flag-icon {
+            width: 16px;
+            height: 12px;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+        
+        .currency-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(102, 192, 244, 0.2);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .currency-icon img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+        
+        .currency-icon.active {
+            background-color: rgba(163, 207, 6, 0.2);
+        }
+        
+        /* Vertical separator between currency icon and text */
+        .vertical-separator {
+            height: 24px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(102, 192, 244, 0.5), transparent);
+            margin: 0 5px;
+            flex-shrink: 0;
+        }
+        
+        .vertical-separator.active {
+            background: linear-gradient(to bottom, transparent, rgba(163, 207, 6, 0.5), transparent);
+        }
+        
+        .status-text::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(102, 192, 244, 0.8), transparent);
+        }
+        
+        .status-text.active {
+            border-color: rgba(163, 207, 6, 0.3);
+            background-color: rgba(92, 126, 16, 0.1);
+        }
+        
+        .status-text.active::after {
+            background: linear-gradient(90deg, transparent, rgba(163, 207, 6, 0.8), transparent);
+        }
+
+        /* Version info */
+        .version-info {
+            margin-top: 5px;
+            font-size: 10px;
+            color: rgba(164, 179, 196, 0.5);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: rgba(26, 159, 255, 0.2);
+            color: #66c0f4;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: default;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .tooltip {
+            width: 180px;
+            background-color: rgba(27, 40, 56, 0.95);
+            color: #ddd;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 10px;
+            line-height: 1.3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 192, 244, 0.2);
+            max-height: 200px;
+        }
+
+        .tooltip::after {
+            display: none;
+        }
+
+        .info-icon:hover {
+            background-color: rgba(26, 159, 255, 0.2);
+        }
+
+        .info-icon:hover .tooltip {
+        }
+
+        .tooltip h4 {
+            color: #66c0f4;
+            margin-bottom: 5px;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(102, 192, 244, 0.3);
+            padding-bottom: 3px;
+        }
+
+        .tooltip ul {
+            list-style-type: none;
+            padding-left: 2px;
+        }
+
+        .tooltip li {
+            margin-bottom: 4px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .tooltip li::before {
+            content: "•";
+            color: #66c0f4;
+            position: absolute;
+            left: 0;
+        }
+
+        .update-version {
+            font-weight: bold;
+            color: #a3cf06;
+        }
+
+        /* Animated background effect */
+        .background-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(42, 71, 94, 0.4) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Flex spacer */
+        .flex-spacer {
+            flex-grow: 1;
+            min-height: 15px;
+        }
+
+        .steam-icon {
+            vertical-align: middle;
+            margin-right: 8px;
+            position: relative;
+            top: -1px;
+        }
+
+        /* First-time user guide */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .spotlight {
+            position: absolute;
+            width: 80px;
+            height: 50px;
+            border-radius: 30px;
+            /* Special box-shadow that creates a "hole" in the overlay */
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85);
+            z-index: 9;
+            pointer-events: none;
+            /* Ensure no background color to allow perfect visibility */
+            background-color: transparent !important;
+            /* Make sure it appears above other elements */
+            mix-blend-mode: normal;
+        }
+        
+        .guide-message {
+            position: absolute;
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            background-color: rgba(26, 159, 255, 0.3);
+            border: 1px solid rgba(102, 192, 244, 0.6);
+            border-radius: 6px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 220px;
+            z-index: 10;
+        }
+        
+        .guide-message::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid rgba(102, 192, 244, 0.6);
+        }
+        
+        .guide-arrow {
+            display: inline-block;
+            margin: 0 5px;
+            animation: slideRight 1.5s ease-in-out infinite;
+            color: #1a9fff;
+            font-weight: bold;
+        }
+        
+        @keyframes slideRight {
+            0% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            100% { transform: translateX(-3px); }
+        }
+        
+        .guide-btn {
+            background-color: rgba(102, 192, 244, 0.3);
+            border: 1px solid rgba(102, 192, 244, 0.6);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 12px;
+        }
+        
+        .guide-btn:hover {
+            background-color: rgba(102, 192, 244, 0.5);
+        }
+        
+        /* First-time slider animation */
+        .slider-highlight {
+            animation: toggleHighlight 2s ease-in-out infinite;
+        }
+        
+        @keyframes toggleHighlight {
+            0% { box-shadow: 0 0 5px rgba(102, 192, 244, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(102, 192, 244, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(102, 192, 244, 0.5); }
         }
     </style>
 </head>
 <body>
-    <div class="header">Steam Fiyat Dönüştürücü</div>
-    <label class="toggle-switch">
-        <input type="checkbox" id="toggleButton">
-        <span class="slider round"></span>
-    </label>
-    <div id="statusText" class="status-text">Fiyatlar şu an orijinal kurda gösteriliyor.</div>
+    <div class="background-effect"></div>
+    <div id="onboardingOverlay" class="onboarding-overlay">
+        <div class="spotlight"></div>
+        <div class="guide-message">
+            Bu kaydırıcıyı kullanarak para birimini <span class="guide-arrow">↔</span> değiştirebilirsiniz
+            <div>
+                <button id="closeGuideBtn" class="guide-btn">Anladım</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            Steam Fiyat Dönüştürücü
+        </div>
+        <div class="toggle-container">
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggleButton">
+                <span class="slider round" id="sliderElement"></span>
+            </label>
+            <div id="statusText" class="status-text">
+                <div class="currency-icon" id="usd-flag">
+                    <img src="icons/flags/usa.png" alt="USA flag">
+                </div>
+                <div class="currency-icon active" id="try-flag" style="display: none;">
+                    <img src="icons/flags/turkiye.png" alt="Türkiye flag">
+                </div>
+                <div class="vertical-separator" id="separator"></div>
+                <div class="status-content">
+                    <span id="statusTextContent">Orijinal kurda gösteriliyor</span>
+                    <span id="locationInfo" class="sub-status"></span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="version-info">
+            <div class="tooltip">
+                <h4>Güncelleştirme Geçmişi</h4>
+                <ul>
+                    <li><span class="update-version">v1.1:</span> Yeni kullanıcı rehberi, iyileştirilmiş arayüz</li>
+                    <li><span class="update-version">v1.0:</span> Yeni arayüz, arka plan desteği</li>
+                    <li><span class="update-version">v0.9:</span> Ek fiyat öğeleri desteği</li>
+                    <li><span class="update-version">v0.8:</span> Steam Market desteği</li>
+                    <li><span class="update-version">v0.7:</span> TRY formatı iyileştirildi</li>
+                </ul>
+            </div>
+            <div class="info-icon">i</div>
+            v1.1 - Steam Fiyat Dönüştürücü
+        </div>
+    </div>
+
     <script src="popup.js"></script>
 </body>
 </html>
